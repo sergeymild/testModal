@@ -1,12 +1,7 @@
 import React, { FC } from 'react';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 
 const withModalProvider = (Component: FC) => () => {
-  return (
-    <BottomSheetModalProvider>
-      <Component />
-    </BottomSheetModalProvider>
-  );
+  return <Component />;
 };
 
 export default withModalProvider;

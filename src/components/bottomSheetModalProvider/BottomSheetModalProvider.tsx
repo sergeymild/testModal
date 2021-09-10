@@ -1,6 +1,5 @@
 import React, { useCallback, useMemo, useRef } from 'react';
 import { useSharedValue } from 'react-native-reanimated';
-import { PortalProvider } from '@gorhom/portal';
 import {
   BottomSheetModalProvider,
   BottomSheetModalInternalProvider,
@@ -185,7 +184,7 @@ const BottomSheetModalProviderWrapper = ({
           containerHeight={animatedContainerHeight}
           children={null}
         />
-        <PortalProvider>{children}</PortalProvider>
+        {children}
       </BottomSheetModalInternalProvider>
     </BottomSheetModalProvider>
   );

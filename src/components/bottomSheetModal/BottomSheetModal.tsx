@@ -12,10 +12,10 @@ import BottomSheet from '../bottomSheet';
 import { useBottomSheetModalInternal } from '../../hooks';
 import { print } from '../../utilities';
 import {
-  DEFAULT_STACK_BEHAVIOR,
   DEFAULT_ENABLE_DISMISS_ON_CLOSE,
+  DEFAULT_STACK_BEHAVIOR,
 } from './constants';
-import type { BottomSheetModalMethods, BottomSheetMethods } from '../../types';
+import type { BottomSheetMethods, BottomSheetModalMethods } from '../../types';
 import type { BottomSheetModalProps } from './types';
 import { Modal } from 'react-native';
 

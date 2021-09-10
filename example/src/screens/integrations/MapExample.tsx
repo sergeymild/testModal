@@ -34,6 +34,7 @@ import LocationDetailsHandle from '../../components/locationDetailsHandle';
 import Weather from '../../components/weather';
 import BlurredBackground from '../../components/blurredBackground';
 import type { Location } from '../../types';
+import BottomSheetModalProvider from '../../../../src/components/bottomSheetModalProvider';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -174,49 +175,53 @@ const MapExample = () => {
         animatedIndex={weatherAnimatedIndex}
         animatedPosition={weatherAnimatedPosition}
       />
-      <BottomSheetModal
-        ref={poiListModalRef}
-        key="PoiListSheet"
-        name="PoiListSheet"
-        index={1}
-        snapPoints={poiListSnapPoints}
-        handleHeight={SEARCH_HANDLE_HEIGHT}
-        topInset={headerHeight}
-        enableDismissOnClose={false}
-        enablePanDownToClose={false}
-        keyboardBehavior="extend"
-        animatedPosition={animatedPOIListPosition}
-        animatedIndex={animatedPOIListIndex}
-        handleComponent={SearchHandle}
-        backdropComponent={renderBackdrop}
-        backgroundComponent={BlurredBackground}
-      >
-        <BottomSheetScrollView
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps="never"
-          style={scrollViewStyle}
-          contentContainerStyle={scrollViewContentContainer}
+      <BottomSheetModalProvider>
+        <BottomSheetModal
+          ref={poiListModalRef}
+          key="PoiListSheet"
+          name="PoiListSheet"
+          index={1}
+          snapPoints={poiListSnapPoints}
+          handleHeight={SEARCH_HANDLE_HEIGHT}
+          topInset={headerHeight}
+          enableDismissOnClose={false}
+          enablePanDownToClose={false}
+          keyboardBehavior="extend"
+          animatedPosition={animatedPOIListPosition}
+          animatedIndex={animatedPOIListIndex}
+          handleComponent={SearchHandle}
+          backdropComponent={renderBackdrop}
+          backgroundComponent={BlurredBackground}
         >
-          {data.map(renderItem)}
-        </BottomSheetScrollView>
-      </BottomSheetModal>
+          <BottomSheetScrollView
+            keyboardDismissMode="on-drag"
+            keyboardShouldPersistTaps="never"
+            style={scrollViewStyle}
+            contentContainerStyle={scrollViewContentContainer}
+          >
+            {data.map(renderItem)}
+          </BottomSheetScrollView>
+        </BottomSheetModal>
+      </BottomSheetModalProvider>
 
-      <BottomSheetModal
-        ref={poiDetailsModalRef}
-        key="PoiDetailsSheet"
-        name="PoiDetailsSheet"
-        snapPoints={poiDetailsSnapPoints}
-        topInset={headerHeight}
-        animatedIndex={animatedPOIDetailsIndex}
-        animatedPosition={animatedPOIDetailsPosition}
-        handleComponent={LocationDetailsHandle}
-        backgroundComponent={BlurredBackground}
-      >
-        <LocationDetails
-          onClose={handleCloseLocationDetails}
-          {...(selectedItem as Location)}
-        />
-      </BottomSheetModal>
+      <BottomSheetModalProvider>
+        <BottomSheetModal
+          ref={poiDetailsModalRef}
+          key="PoiDetailsSheet"
+          name="PoiDetailsSheet"
+          snapPoints={poiDetailsSnapPoints}
+          topInset={headerHeight}
+          animatedIndex={animatedPOIDetailsIndex}
+          animatedPosition={animatedPOIDetailsPosition}
+          handleComponent={LocationDetailsHandle}
+          backgroundComponent={BlurredBackground}
+        >
+          <LocationDetails
+            onClose={handleCloseLocationDetails}
+            {...(selectedItem as Location)}
+          />
+        </BottomSheetModal>
+      </BottomSheetModalProvider>
     </View>
   );
 };
