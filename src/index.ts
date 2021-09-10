@@ -3,7 +3,6 @@ export { default } from './components/bottomSheet';
 
 // bottom sheet modal
 export { default as BottomSheetModal } from './components/bottomSheetModal';
-export { default as BottomSheetModalProvider } from './components/bottomSheetModalProvider';
 
 //#region hooks
 export { useBottomSheet } from './hooks/useBottomSheet';
@@ -22,7 +21,6 @@ export {
   BottomSheetVirtualizedList,
 } from './components/bottomSheetScrollable';
 export { default as BottomSheetHandle } from './components/bottomSheetHandle';
-export { default as BottomSheetDraggableView } from './components/bottomSheetDraggableView';
 export { default as BottomSheetView } from './components/bottomSheetView';
 export { default as BottomSheetTextInput } from './components/bottomSheetTextInput';
 export { default as BottomSheetBackdrop } from './components/bottomSheetBackdrop';
