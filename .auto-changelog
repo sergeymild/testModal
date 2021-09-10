@@ -1,7 +1,0 @@
-{
-  "handlebarsSetup": "./scripts/auto-changelog.js",
-  "ignoreCommitPattern": "^chore: release v",
-  "startingVersion": "v4.0.0-alpha.0",
-  "unreleased": false,
-  "commitLimit": false
-}

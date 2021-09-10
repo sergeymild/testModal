@@ -7,7 +7,6 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import { Portal, usePortal } from '@gorhom/portal';
 import { nanoid } from 'nanoid/non-secure';
 import BottomSheet from '../bottomSheet';
 import { useBottomSheetModalInternal } from '../../hooks';
@@ -18,6 +17,7 @@ import {
 } from './constants';
 import type { BottomSheetModalMethods, BottomSheetMethods } from '../../types';
 import type { BottomSheetModalProps } from './types';
+import { Modal } from 'react-native';
 
 type BottomSheetModal = BottomSheetModalMethods;
 
@@ -57,7 +57,6 @@ const BottomSheetModalComponent = forwardRef<
     unmountSheet,
     willUnmountSheet,
   } = useBottomSheetModalInternal();
-  const { removePortal: unmountPortal } = usePortal();
   //#endregion
 
   //#region refs
@@ -96,9 +95,8 @@ const BottomSheetModalComponent = forwardRef<
       // reset variables
       resetVariables();
 
-      // unmount sheet and portal
+      // unmount sheet
       unmountSheet(key);
-      unmountPortal(key);
 
       // unmount the node, if sheet is still mounted
       if (_mounted) {
@@ -110,7 +108,7 @@ const BottomSheetModalComponent = forwardRef<
         _providedOnDismiss();
       }
     },
-    [key, resetVariables, unmountSheet, unmountPortal, _providedOnDismiss]
+    [key, resetVariables, unmountSheet, _providedOnDismiss]
   );
   //#endregion
 
@@ -252,36 +250,6 @@ const BottomSheetModalComponent = forwardRef<
   }, []);
   //#endregion
 
-  //#region callbacks
-  const handlePortalOnUnmount = useCallback(
-    function handlePortalOnUnmount() {
-      print({
-        component: BottomSheetModal.name,
-        method: handlePortalOnUnmount.name,
-        params: {
-          minimized: minimized.current,
-          forcedDismissed: forcedDismissed.current,
-        },
-      });
-      /**
-       * if modal is already been dismiss, we exit the method.
-       */
-      if (currentIndexRef.current === -1 && minimized.current === false) {
-        return;
-      }
-
-      mounted.current = false;
-      forcedDismissed.current = true;
-
-      if (minimized.current) {
-        unmount();
-        return;
-      }
-      willUnmountSheet(key);
-      bottomSheetRef.current?.close();
-    },
-    [key, unmount, willUnmountSheet]
-  );
   const handleBottomSheetOnChange = useCallback(
     function handleBottomSheetOnChange(_index: number) {
       print({
@@ -344,7 +312,7 @@ const BottomSheetModalComponent = forwardRef<
   // render
   // console.log('BottomSheetModal', index, snapPoints)
   return mount ? (
-    <Portal key={key} name={key} handleOnUnmount={handlePortalOnUnmount}>
+    <Modal transparent hardwareAccelerated animationType={'none'}>
       <BottomSheet
         {...bottomSheetProps}
         ref={bottomSheetRef}
@@ -360,7 +328,7 @@ const BottomSheetModalComponent = forwardRef<
         children={children}
         $modal={true}
       />
-    </Portal>
+    </Modal>
   ) : null;
 });
 
