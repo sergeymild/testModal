@@ -3,6 +3,7 @@ export { default } from './components/bottomSheet';
 
 // bottom sheet modal
 export { default as BottomSheetModal } from './components/bottomSheetModal';
+export { default as BottomSheetModalProvider } from './components/bottomSheetModalProvider';
 
 //#region hooks
 export { useBottomSheet } from './hooks/useBottomSheet';
